@@ -34,8 +34,6 @@ class PostController extends Controller
                         ->orWhere('description', 'like' ,'%'.$search.'%')
                         ->paginate(5);
          }else{
-        //show excel data
-        // $posts = Post::where('deleted_at', NULL)->orderBy('id')->paginate(10);
             $posts = Post::latest()->paginate(5);
          }
         return view('post.index', compact('posts'));
