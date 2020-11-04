@@ -34,7 +34,7 @@
                             <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('Profile') }}</label>
 
                             <div class="col-md-6" style="width:300px; height: 150px;">
-                            <img src="{{ asset('profiles/'. $user->profile) }}" alt="{{$user->profile}}" style="max-width: 100%; height:100%;">
+                            <img src="{{ $user->image_link }}" alt="{{$user->profile}}" style="max-width: 100%; height:100%;">
                             </div>
                         </div>
                         <!-- profile -->

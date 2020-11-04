@@ -4,6 +4,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                @if(count($errors) > 0)
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error }}</div>
+                    @endforeach
+                @endif
                 <div class="card-header">{{ __('Create User') }}</div>
 
                 <div class="card-body">
@@ -71,14 +76,8 @@
                             @if(session('users')['profile'])
                                 <input id="profile" type="file" class="border-0 pl-0 form-control @error('profile') is-invalid @enderror" name="profile" value="{{ session('users')['profile'] }}" required>
                             @else
-                                <input id="profile" type="file" class="border-0 pl-0 form-control @error('profile') is-invalid @enderror" name="profile" required>
-
-                                @error('profile')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                @endif
+                                <input id="profile" type="file" class="border-0 pl-0 form-control @error('profile') is-invalid @enderror" {{ $errors->has('profile') ? ' is-invalid' : ''}} name="profile" required>
+                            @endif
                             </div>
                         </div>
                         <!-- profile -->
@@ -141,7 +140,6 @@
 </div>
 <script>
 function myFunction() {
-    console.log(document.forms);
     document.forms[1].name.value = '';
     document.forms[1].email.value = '';
     document.forms[1].password.value = '';

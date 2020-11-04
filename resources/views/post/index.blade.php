@@ -48,7 +48,7 @@
         <td>{{$post['title']}}</td>
         <td>{{$post['description']}}</td>
         <td>{{$post->user->name}}</td>
-        <td>{{$post['created_at']}}</td>
+        <td>{{$post['created_at']->format('d/m/Y')}}</td>
         <td><a href="{{action('PostController@edit', $post['id'])}}" class="btn btn-warning">Edit</a></td>
         <td>
           <form action="{{action('PostController@destroy', $post['id'])}}" method="post">

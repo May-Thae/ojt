@@ -4,11 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>SCM Bulletin Board</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Styles -->
         <style>
             html, body {
@@ -64,31 +65,50 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}" class="text-white">Home</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-white">Login</a>
+                        <a href="{{ route('login') }}" class="text-dark">Login</a>
                     @endauth
                 </div>
             @endif
 
-            <div class="content">
+            <div class="content w-100 mt-4">
+
                 <div class="title m-b-md">
-                    Laravel
+                    SCM Bulletin Board
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="container">
+                    <div class="text-right mb-5">
+                        <a class="btn btn-success" href="{{ route('file-export') }}">Download Posts</a>
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="bg-primary text-white">
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($welcomeposts as $welcomepost)
+                        <tr>
+                            <td>{{$welcomepost['id']}}</td>
+                            <td>{{$welcomepost['title']}}</td>
+                            <td>{{$welcomepost['description']}}</td>
+
+                        </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        {{ $welcomeposts->links() }}
+                    </div>
                 </div>
             </div>
         </div>

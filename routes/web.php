@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'WelcomeController@index')->name('welcome');
 Route::get('/home', function () {
     return "Home";
 });
@@ -32,12 +33,12 @@ Route::group(array('middleware'=>'auth'),function(){
     Route::resource('post', 'PostController');
     Route::post('/post/confirm', 'PostController@confirm');
 
-    // import excel
-    Route::get('file-import-export', 'PostController@fileImportExport');
-    Route::post('file-import', 'PostController@fileImport')->name('file-import');
-    Route::get('file-export', 'PostController@fileExport')->name('file-export');
-
 });
+
+// import excel
+Route::get('file-import-export', 'PostController@fileImportExport');
+Route::post('file-import', 'PostController@fileImport')->name('file-import')->middleware('auth');
+Route::get('file-export', 'PostController@fileExport')->name('file-export');
 
 // user list
 Route::resource('user', 'UserController');

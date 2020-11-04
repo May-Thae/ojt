@@ -40,7 +40,7 @@
             <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('Profile') }}</label>
 
             <div class="col-md-6">
-                <img src="{{ asset('profiles/'. $user->profile) }}" alt="{{$user->profile}}" style="max-width: 100%; height:100%; max-height: 150px;">
+                <img src="{{ $user->image_link }}" alt="{{$user->profile}}" style="max-width: 100%; height:100%; max-height: 150px;">
                 <input type="hidden" name="profile" value="{{$user->profile}}">
             </div>
         </div>

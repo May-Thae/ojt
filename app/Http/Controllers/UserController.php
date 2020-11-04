@@ -28,9 +28,6 @@ class UserController extends Controller
 
     public function searchUser(Request $request)
     {
-        if($request->session('users')){
-            $request->session()->forget('users');
-         }
         $name = $request['name'];
         $email = $request['email'];
         $createdFrom = $request['createdFrom'];
@@ -38,15 +35,15 @@ class UserController extends Controller
         $user = User::when($name, function ($query) use ($name) {
                 $query->where('name', 'like', '%' . $name . '%');
                 })
-                    ->when($email, function ($query) use ($email) {
-                        $query->orWhere('email', 'like', '%' . $email . '%');
-                    })
-                        ->when($createdFrom, function ($query) use ($createdFrom) {
-                            $query->orWhere('created_at', '>=', $createdFrom);
-                        })
-                            ->when($createdTo, function ($query) use ($createdTo) {
-                                $query->where('created_at', '<=', $createdTo);
-                            })->orderBy('created_at', 'desc')->paginate(5);
+                ->when($email, function ($query) use ($email) {
+                    $query->orWhere('email', 'like', '%' . $email . '%');
+                })
+                ->when($createdFrom, function ($query) use ($createdFrom) {
+                    $query->orWhere('created_at', '>=', $createdFrom);
+                })
+                ->when($createdTo, function ($query) use ($createdTo) {
+                    $query->where('created_at', '<=', $createdTo);
+                })->orderBy('created_at', 'desc')->paginate(5);
         return view('user.list', compact('user'));
     }
 
@@ -99,6 +96,9 @@ class UserController extends Controller
 
     public function confirm(Request $request)
     {
+        $this->validate($request,[
+            'profile' =>  'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
         if ($request->hasFile('profile')) {
             $filename = time() . '_' .$request->file('profile')->getClientOriginalName();
             $request->file('profile')->storeAs('profiles' , $filename);
@@ -128,28 +128,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // if ($request->hasFile('profile')) {
-
-        //     $filename = time() . '_' .$request->file('profile')->getClientOriginalName();
-        //     $request->file('profile')->storeAs('profiles' , $filename);
-
-        //     $user = new User([
-        //     'name' => $request['name'],
-        //     'email' => $request['email'],
-        //     'password' => Hash::make($request['password']),
-        //     'profile' => $filename,
-        //     'type' => $request['type'],
-        //     'phone' => $request['phone'],
-        //     'address' => $request['address'],
-        //     'dob' => $request['dob'],
-        //     'create_user_id' => 1,
-        //     'updated_user_id' => 1,
-        //     ]);
-        //     $user->save();
-        //     log::info($user);
-        //     return redirect('/users');
-        // }
-
         $user = new User([
                 'name' => $request['name'],
                 'email' => $request['email'],

@@ -5,16 +5,16 @@
         <div class="form-group row">
         {{csrf_field()}}
             <input name="_method" type="hidden" value="PATCH">
-            <label for="lgFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Title</label>
+            <label for="title" class="col-sm-2 col-form-label col-form-label-lg">Title</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control form-control-lg" id="lgFormGroupInput" placeholder="title" name="title" value="{{$post->title}}">
+                <input type="text" class="form-control form-control-lg" id="title" placeholder="Title" name="title" value="{{$post->title}}">
             </div>
         </div>
         <!-- end title -->
         <div class="form-group row">
-            <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-lg">Description</label>
+            <label for="description" class="col-sm-2 col-form-label col-form-label-lg">Description</label>
             <div class="col-sm-10">
-                <textarea name="description" rows="8" cols="80" class="form-control form-control-lg">{{$post->description}}</textarea>
+                <textarea name="description" id="description" rows="8" cols="80" class="form-control form-control-lg" placeholder="Description">{{$post->description}}</textarea>
             </div>
         </div>
         <!-- end description -->
@@ -31,7 +31,7 @@
         <div class="form-group row">
             <div class="col-md-2"></div>
             <button type="submit" class="btn btn-primary mr-3">Update</button>
-            <button type="reset" class="btn btn-primary">Clear</button>
+            <input type="button" class="btn btn-danger" value="Clear" onclick="myFunction()">
         </div>
     </form>
 </div>
@@ -103,12 +103,17 @@ input:checked + .slider:before {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
   $(function() {
+    var status = $(this).prop('checked') == true ? 1 : 0;
+    $("#status").val(status);
     $('.toggle-class').change(function() {
         var status = $(this).prop('checked') == true ? 1 : 0;
-        console.log(status);
-
         $("#status").val(status);
     })
   })
 
+  function myFunction() {
+    console.log(document.forms);
+    document.getElementById('title').value = '';
+    document.getElementById('description').value = '';
+}
 </script>

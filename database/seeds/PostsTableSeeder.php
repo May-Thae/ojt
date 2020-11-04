@@ -18,7 +18,7 @@ class PostsTableSeeder extends Seeder
             $userIDs = DB::table('users')->pluck("id"); //foreignKey
 	        DB::table('posts')->insert([
 	            'title' => $faker->jobTitle,
-	            'description' => $faker->text($maxNbChars = 200),
+	            'description' => $faker->text($maxNbChars = 100),
                 'status' => $faker->numberBetween(0,1),
                 'create_user_id' => $faker->randomElement($userIDs),
                 'updated_user_id' => $faker->randomElement($userIDs),
