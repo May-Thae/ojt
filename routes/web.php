@@ -6,10 +6,11 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// Route::get('/home', 'WelcomeController@index')->name('welcome');
 Route::get('/', 'WelcomeController@index')->name('welcome');
-Route::get('/home', function () {
-    return "Home";
-});
+// Route::get('/', function () {
+//     return "Home";
+// });
 
 // Auth::routes();
 Auth::routes(['register' => false]);
